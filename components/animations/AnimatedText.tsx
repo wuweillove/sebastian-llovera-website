@@ -8,7 +8,7 @@ interface AnimatedTextProps {
   className?: string
   delay?: number
   staggerDelay?: number
-  as?: 'h1' | 'h2' | 'h3' | 'h4' | 'p' | 'span'
+  as?: 'div' | 'h1' | 'h2' | 'h3' | 'h4' | 'p' | 'span'
 }
 
 export function AnimatedText({
