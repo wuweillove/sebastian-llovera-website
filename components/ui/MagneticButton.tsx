@@ -17,7 +17,7 @@ export function MagneticButton({
   className,
   onClick,
   href,
-  strength = 0.3,
+  strength = 0.4,
 }: MagneticButtonProps) {
   const ref = useRef<HTMLDivElement>(null)
   const [position, setPosition] = useState({ x: 0, y: 0 })
@@ -25,9 +25,9 @@ export function MagneticButton({
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!ref.current) return
     const rect = ref.current.getBoundingClientRect()
-    const x = e.clientX - rect.left - rect.width / 2
-    const y = e.clientY - rect.top - rect.height / 2
-    setPosition({ x: x * strength, y: y * strength })
+    const x = (e.clientX - rect.left - rect.width / 2) * strength
+    const y = (e.clientY - rect.top - rect.height / 2) * strength
+    setPosition({ x, y })
   }
 
   const handleMouseLeave = () => {
@@ -43,7 +43,6 @@ export function MagneticButton({
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       className="inline-block"
-      data-magnetic
     >
       <Component
         {...props}
@@ -51,17 +50,16 @@ export function MagneticButton({
         transition={{ type: 'spring', stiffness: 150, damping: 15, mass: 0.1 }}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
+        data-cursor="button"
         className={cn(
           'relative inline-flex items-center justify-center overflow-hidden',
           'px-8 py-4 rounded-full font-medium transition-all duration-300',
           'will-change-transform',
           className
         )}
-        data-cursor="button"
       >
         <motion.span
           className="relative z-10"
-          initial={{ opacity: 1 }}
           whileHover={{ letterSpacing: '0.05em' }}
           transition={{ duration: 0.3 }}
         >
@@ -74,6 +72,14 @@ export function MagneticButton({
           initial={{ x: '-100%' }}
           whileHover={{ x: '0%' }}
           transition={{ duration: 0.4, ease: 'easeInOut' }}
+        />
+
+        {/* Shimmer effect on hover */}
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+          initial={{ x: '-100%' }}
+          whileHover={{ x: '200%' }}
+          transition={{ duration: 0.8, ease: 'easeInOut' }}
         />
       </Component>
     </div>
