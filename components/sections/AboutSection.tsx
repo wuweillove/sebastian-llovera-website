@@ -1,76 +1,87 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { RevealText } from '@/components/animations/RevealText'
-import { StaggeredFade } from '@/components/animations/StaggeredFade'
-import { ParallaxSection } from '@/components/animations/ParallaxSection'
+import { RevealOnScroll } from '@/components/animations/RevealOnScroll'
+import { TextReveal } from '@/components/animations/TextReveal'
 
 export function AboutSection() {
-  const stats = [
-    { label: 'Years Experience', value: '5+' },
-    { label: 'Projects Completed', value: '50+' },
-    { label: 'Happy Clients', value: '30+' },
-  ]
-
   return (
-    <section className="py-fluid-2xl px-6 md:px-12 bg-foreground/[0.02] relative overflow-hidden">
-      <ParallaxSection speed={0.3} className="max-w-5xl mx-auto">
-        <div className="mb-fluid-lg">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+    <section className="py-fluid-xl px-6 md:px-12 bg-gradient-to-b from-foreground/5 to-transparent relative overflow-hidden">
+      {/* Background pattern */}
+      <div className="absolute inset-0 opacity-[0.02]">
+        <div className="absolute inset-0" style={{
+          backgroundImage: 'radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0)',
+          backgroundSize: '40px 40px'
+        }} />
+      </div>
+
+      <div className="max-w-5xl mx-auto relative z-10">
+        <RevealOnScroll>
+          <h2 className="text-fluid-3xl font-bold mb-fluid-md tracking-tight">
+            Crafting Digital Experiences
+          </h2>
+        </RevealOnScroll>
+
+        <RevealOnScroll delay={0.1}>
+          <motion.p
+            className="text-fluid-lg text-muted leading-relaxed mb-12"
+            initial={{ opacity: 0.8 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="mb-4"
           >
-            <span className="text-fluid-sm uppercase tracking-widest text-muted font-medium">
-              About
-            </span>
-          </motion.div>
-
-          <RevealText
-            text="Crafting Digital Experiences"
-            className="text-fluid-4xl font-bold mb-fluid-md tracking-tight"
-          />
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3, duration: 0.8 }}
-          className="space-y-6 text-fluid-lg leading-relaxed mb-fluid-lg"
-        >
-          <p className="text-foreground/90">
             I specialize in creating contemporary web experiences that push the
             boundaries of design and interaction. With a focus on fluid
-            animations and sophisticated user interfaces, I bring digital visions to
+            animations and sophisticated user interfaces, I bring visions to
             life using cutting-edge technologies.
-          </p>
-          
-          <p className="text-foreground/80">
-            Every project is an opportunity to explore new techniques, refine my
-            craft, and deliver exceptional results that exceed expectations.
-          </p>
-        </motion.div>
+          </motion.p>
+        </RevealOnScroll>
 
-        <StaggeredFade className="grid md:grid-cols-3 gap-12" stagger={0.15}>
-          {stats.map((stat, i) => (
-            <div key={stat.label} className="text-center md:text-left">
-              <motion.div 
-                className="text-fluid-4xl font-bold mb-3 bg-gradient-to-br from-foreground to-foreground/50 bg-clip-text text-transparent"
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: 'spring', stiffness: 300 }}
+        <div className="grid md:grid-cols-3 gap-12 mb-fluid-lg">
+          {[
+            { label: 'Years Experience', value: '5+' },
+            { label: 'Projects Completed', value: '50+' },
+            { label: 'Happy Clients', value: '30+' },
+          ].map((stat, i) => (
+            <RevealOnScroll key={stat.label} delay={0.2 + i * 0.1}>
+              <motion.div
+                whileHover={{ scale: 1.05, y: -5 }}
+                className="text-center p-6 rounded-2xl bg-foreground/5 backdrop-blur-sm border border-foreground/10 hover:border-foreground/20 transition-all duration-300"
               >
-                {stat.value}
+                <TextReveal delay={0.3 + i * 0.1}>
+                  <div className="text-fluid-3xl font-bold mb-2 bg-gradient-to-br from-foreground to-accent bg-clip-text text-transparent">
+                    {stat.value}
+                  </div>
+                </TextReveal>
+                <div className="text-muted text-sm uppercase tracking-widest">
+                  {stat.label}
+                </div>
               </motion.div>
-              <div className="text-muted text-sm uppercase tracking-wider">
-                {stat.label}
-              </div>
-            </div>
+            </RevealOnScroll>
           ))}
-        </StaggeredFade>
-      </ParallaxSection>
+        </div>
+
+        <RevealOnScroll delay={0.5}>
+          <div className="flex flex-wrap gap-4 justify-center">
+            {['Next.js', 'TypeScript', 'Framer Motion', 'TailwindCSS', 'GSAP', 'Three.js'].map((tech, i) => (
+              <motion.div
+                key={tech}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.6 + i * 0.05 }}
+                whileHover={{ 
+                  scale: 1.1, 
+                  backgroundColor: 'rgba(255, 107, 107, 0.1)',
+                  borderColor: 'rgba(255, 107, 107, 0.3)'
+                }}
+                className="px-5 py-2.5 rounded-full border border-foreground/20 text-sm font-medium backdrop-blur-sm transition-all duration-300 cursor-default"
+              >
+                {tech}
+              </motion.div>
+            ))}
+          </div>
+        </RevealOnScroll>
+      </div>
     </section>
   )
 }

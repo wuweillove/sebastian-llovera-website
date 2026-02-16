@@ -2,67 +2,70 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { AdvancedProjectCard } from '@/components/projects/AdvancedProjectCard'
-import { RevealText } from '@/components/animations/RevealText'
-import { MagneticButton } from '@/components/ui/MagneticButton'
+import { ProjectCard } from '@/components/projects/ProjectCard'
+import { AnimatedText } from '@/components/animations/AnimatedText'
+import { RevealOnScroll } from '@/components/animations/RevealOnScroll'
 import { projects } from '@/lib/projects'
 
 export function ProjectsSection() {
-  const featuredProjects = projects.slice(0, 3)
+  const featuredProjects = projects.slice(0, 2)
 
   return (
-    <section className="py-fluid-2xl px-6 md:px-12 relative">
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-fluid-lg">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="mb-4"
-          >
-            <span className="text-fluid-sm uppercase tracking-widest text-muted font-medium">
-              Selected Works
-            </span>
-          </motion.div>
+    <section className="py-fluid-xl px-6 md:px-12 relative">
+      {/* Background decoration */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-3xl" />
+      </div>
+
+      <div className="max-w-7xl mx-auto relative z-10">
+        <div className="mb-fluid-md">
+          <RevealOnScroll>
+            <AnimatedText
+              text="Featured Projects"
+              as="h2"
+              className="text-fluid-3xl font-bold mb-6 tracking-tight"
+            />
+          </RevealOnScroll>
           
-          <RevealText
-            text="Featured Projects"
-            className="text-fluid-4xl font-bold mb-8 tracking-tight"
-          />
-          
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-            className="text-fluid-lg text-muted max-w-2xl leading-relaxed"
-          >
-            A curated collection of projects showcasing contemporary design,
-            sophisticated animations, and technical excellence
-          </motion.p>
+          <RevealOnScroll delay={0.2}>
+            <motion.p
+              className="text-fluid-lg text-muted max-w-2xl leading-relaxed"
+            >
+              Selected works showcasing contemporary design, sophisticated
+              animations, and cutting-edge technologies
+            </motion.p>
+          </RevealOnScroll>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8 mb-16">
+        <div className="grid md:grid-cols-2 gap-8 mb-16">
           {featuredProjects.map((project, index) => (
-            <AdvancedProjectCard key={project.slug} project={project} index={index} />
+            <ProjectCard key={project.slug} project={project} index={index} />
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4, duration: 0.6 }}
-          className="text-center"
-        >
-          <MagneticButton
-            href="/projects"
-            className="border-2 border-foreground/20 hover:border-foreground/40"
-          >
-            View All Projects
-          </MagneticButton>
-        </motion.div>
+        <RevealOnScroll delay={0.4}>
+          <div className="text-center">
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-block"
+            >
+              <Link
+                href="/projects"
+                className="magnetic cursor-button group inline-flex items-center gap-3 px-8 py-4 border-2 border-foreground/20 rounded-full font-medium transition-all duration-300 hover:border-foreground/40 hover:bg-foreground/5"
+              >
+                <span>View All Projects</span>
+                <motion.span
+                  className="inline-block"
+                  animate={{ x: [0, 5, 0] }}
+                  transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
+                >
+                  →
+                </motion.span>
+              </Link>
+            </motion.div>
+          </div>
+        </RevealOnScroll>
       </div>
     </section>
   )
