@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import { CustomCursor } from '@/components/cursor/CustomCursor'
+import { PremiumCursor } from '@/components/cursor/PremiumCursor'
 import { TouchRipple } from '@/components/cursor/TouchRipple'
-import { Navigation } from '@/components/navigation/Navigation'
-import { PageTransition } from '@/components/animations/PageTransition'
+import { NavigationMicro } from '@/components/navigation/NavigationMicro'
+import { PremiumPageTransition } from '@/components/animations/PremiumPageTransition'
 import { SmoothScroll } from '@/components/animations/SmoothScroll'
 
 const inter = Inter({ 
@@ -49,25 +49,23 @@ export default function RootLayout({
     <html lang="en" className={inter.variable}>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
       </head>
       <body className="bg-background text-foreground antialiased overflow-x-hidden">
         <SmoothScroll>
-          <CustomCursor />
+          <PremiumCursor />
           <TouchRipple />
-          <Navigation />
-          <PageTransition>
-            <main role="main">
+          <NavigationMicro />
+          <PremiumPageTransition>
+            <main role="main" id="main-content">
               {children}
             </main>
-          </PageTransition>
+          </PremiumPageTransition>
         </SmoothScroll>
         
         {/* Accessibility: Skip to main content */}
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-foreground focus:text-background focus:rounded-lg"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[200] focus:px-4 focus:py-2 focus:bg-foreground focus:text-background focus:rounded-lg"
         >
           Skip to main content
         </a>
