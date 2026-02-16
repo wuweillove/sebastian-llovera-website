@@ -1,15 +1,15 @@
 import { AnimatedHero } from '@/components/animations/AnimatedHero'
-import { ProjectsSection } from '@/components/sections/ProjectsSection'
-import { AboutSection } from '@/components/sections/AboutSection'
-import { ContactSection } from '@/components/sections/ContactSection'
+import { PremiumProjectsSection } from '@/components/sections/PremiumProjectsSection'
+import { PremiumAboutSection } from '@/components/sections/PremiumAboutSection'
+import { PremiumContactSection } from '@/components/sections/PremiumContactSection'
 
 export default function Home() {
   return (
     <main className="min-h-screen">
       <AnimatedHero />
-      <ProjectsSection />
-      <AboutSection />
-      <ContactSection />
+      <PremiumProjectsSection />
+      <PremiumAboutSection />
+      <PremiumContactSection />
     </main>
   )
 }
