@@ -1,4 +1,4 @@
-import { HeroSection } from '@/components/hero/HeroSection'
+import { AdvancedHero } from '@/components/hero/AdvancedHero'
 import { ProjectsSection } from '@/components/sections/ProjectsSection'
 import { AboutSection } from '@/components/sections/AboutSection'
 import { ContactSection } from '@/components/sections/ContactSection'
@@ -6,7 +6,7 @@ import { ContactSection } from '@/components/sections/ContactSection'
 export default function Home() {
   return (
     <main className="min-h-screen">
-      <HeroSection />
+      <AdvancedHero />
       <ProjectsSection />
       <AboutSection />
       <ContactSection />
