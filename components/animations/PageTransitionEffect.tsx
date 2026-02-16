@@ -37,12 +37,10 @@ export function PageTransitionEffect({ children }: PageTransitionEffectProps) {
                 }}
                 style={{
                   originY: 0,
-                }}
-                className="fixed inset-y-0 z-[9998] bg-foreground"
-                style={{
                   left: `${i * 20}%`,
                   width: '20%',
                 }}
+                className="fixed inset-y-0 z-[9998] bg-foreground"
               />
             ))}
             
