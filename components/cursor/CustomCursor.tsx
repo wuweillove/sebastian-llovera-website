@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 
 type CursorState = 'default' | 'hover' | 'text' | 'image' | 'button'
@@ -29,7 +29,6 @@ export function CustomCursor() {
   })
 
   useEffect(() => {
-    let rafId: number
     let magneticTarget: HTMLElement | null = null
 
     const moveCursor = (e: MouseEvent) => {
@@ -111,7 +110,6 @@ export function CustomCursor() {
       window.removeEventListener('mouseover', handleMouseOver)
       document.removeEventListener('mouseleave', handleMouseLeave)
       document.removeEventListener('mouseenter', handleMouseEnter)
-      if (rafId) cancelAnimationFrame(rafId)
     }
   }, [cursorX, cursorY, cursorState])
 
