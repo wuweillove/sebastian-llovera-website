@@ -3,50 +3,42 @@ import { Project } from '@/types'
 export const projects: Project[] = [
   {
     id: '1',
-    slug: 'project-alpha',
-    title: 'Project Alpha',
-    description:
-      'A contemporary e-commerce platform featuring fluid product animations and seamless checkout experience.',
-    longDescription:
-      'Project Alpha reimagines the online shopping experience with sophisticated animations, micro-interactions, and a focus on user engagement. Built with Next.js and Framer Motion, it delivers a blazing-fast, visually stunning platform.',
-    tags: ['Next.js', 'TypeScript', 'Framer Motion', 'TailwindCSS', 'E-commerce'],
-    image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800',
+    slug: 'digital-memory-archive',
+    title: 'Digital Memory Archive',
+    description: 'An interactive installation exploring personal and collective memory through digital artifacts and physical objects.',
+    longDescription: 'Digital Memory Archive is an immersive installation that investigates the relationship between digital preservation and material memory. Through a combination of projected imagery, physical artifacts, and interactive elements, the work creates a contemplative space for examining how we remember and forget in the digital age.',
+    tags: ['Installation', 'Digital Media', 'Interactive', 'Projection Mapping'],
+    image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1800',
     year: '2024',
   },
   {
     id: '2',
-    slug: 'digital-canvas',
-    title: 'Digital Canvas',
-    description:
-      'An interactive portfolio platform for artists featuring gallery layouts and smooth image transitions.',
-    longDescription:
-      'Digital Canvas provides artists with a beautiful, customizable platform to showcase their work. Features include advanced gallery layouts, smooth transitions, and interactive elements that bring artwork to life.',
-    tags: ['React', 'GSAP', 'Three.js', 'Design System'],
-    image: 'https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?w=800',
+    slug: 'liminal-spaces',
+    title: 'Liminal Spaces',
+    description: 'A series of digital compositions examining transitional states and threshold experiences.',
+    longDescription: 'Liminal Spaces is a body of work that explores the concept of in-between states through digital composition and generative processes. The series investigates moments of transition, uncertainty, and transformation, creating visual experiences that exist between defined categories.',
+    tags: ['Digital Art', 'Generative', 'Series', 'NFT'],
+    image: 'https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?w=1800',
     year: '2024',
   },
   {
     id: '3',
-    slug: 'motion-studio',
-    title: 'Motion Studio',
-    description:
-      'A design system and component library with focus on fluid animations and accessibility.',
-    longDescription:
-      'Motion Studio is a comprehensive design system built for modern web applications. It features a complete set of accessible components with built-in animations and a flexible theming system.',
-    tags: ['Design System', 'Storybook', 'Accessibility', 'Animation'],
-    image: 'https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=800',
+    slug: 'technological-meditations',
+    title: 'Technological Meditations',
+    description: 'A multimedia installation addressing our relationship with technology and contemplative practices.',
+    longDescription: 'Technological Meditations creates an environment that juxtaposes digital interfaces with spaces for quiet reflection. The installation invites visitors to consider how technology shapes our capacity for attention, presence, and meditative states in contemporary life.',
+    tags: ['Installation', 'Multimedia', 'Sound', 'Interactive'],
+    image: 'https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=1800',
     year: '2023',
   },
   {
     id: '4',
-    slug: 'wave-ui',
-    title: 'Wave UI',
-    description:
-      'A SaaS dashboard with data visualization and real-time updates powered by modern web technologies.',
-    longDescription:
-      'Wave UI transforms complex data into beautiful, interactive visualizations. Built for performance and scalability, it handles real-time updates seamlessly while maintaining a delightful user experience.',
-    tags: ['Dashboard', 'Data Viz', 'Real-time', 'WebSocket'],
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800',
+    slug: 'identity-protocols',
+    title: 'Identity Protocols',
+    description: 'An exploration of identity construction in networked environments through code and visual systems.',
+    longDescription: 'Identity Protocols examines how identity is constructed, performed, and validated in digital networks. Using custom software and visual systems, the work reveals the protocols and infrastructures that mediate contemporary identity formation.',
+    tags: ['Code Art', 'Digital Identity', 'Systems', 'Web-based'],
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1800',
     year: '2023',
   },
 ]

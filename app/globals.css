@@ -4,19 +4,18 @@
 
 @layer base {
   :root {
-    --color-background: 10 10 10;
-    --color-foreground: 250 250 250;
-    --color-accent: 255 107 107;
-    --color-muted: 102 102 102;
+    --background: 10 10 10;
+    --foreground: 250 250 250;
+    --accent: 255 107 107;
   }
 
   * {
-    @apply border-border;
+    @apply border-neutral-800;
   }
-  
+
   body {
-    @apply bg-background text-foreground;
-    font-feature-settings: 'rlig' 1, 'calt' 1, 'kern' 1;
+    @apply bg-[#0a0a0a] text-neutral-100;
+    font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -25,130 +24,56 @@
   html {
     scroll-behavior: smooth;
   }
-
-  @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-      scroll-behavior: auto !important;
-    }
-  }
-
-  /* Lenis smooth scroll */
-  html.lenis {
-    height: auto;
-  }
-
-  .lenis.lenis-smooth {
-    scroll-behavior: auto;
-  }
-
-  .lenis.lenis-smooth [data-lenis-prevent] {
-    overscroll-behavior: contain;
-  }
-
-  .lenis.lenis-stopped {
-    overflow: hidden;
-  }
-
-  .lenis.lenis-scrolling iframe {
-    pointer-events: none;
-  }
-
-  /* Selection styles */
-  ::selection {
-    @apply bg-accent text-background;
-  }
-
-  ::-moz-selection {
-    @apply bg-accent text-background;
-  }
-
-  /* Focus styles for accessibility */
-  :focus-visible {
-    @apply outline-2 outline-offset-2 outline-accent;
-  }
-
-  /* Screen reader only */
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
-  }
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  .text-fluid-xs {
+    font-size: clamp(0.75rem, 0.9vw, 0.875rem);
+  }
+  .text-fluid-sm {
+    font-size: clamp(0.875rem, 1vw, 1rem);
+  }
+  .text-fluid-base {
+    font-size: clamp(1rem, 1.2vw, 1.125rem);
+  }
+  .text-fluid-lg {
+    font-size: clamp(1.125rem, 1.5vw, 1.25rem);
+  }
+  .text-fluid-xl {
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+  }
+  .text-fluid-2xl {
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+  }
+  .text-fluid-3xl {
+    font-size: clamp(2rem, 4vw, 3rem);
+  }
+  .text-fluid-4xl {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+  }
+  .text-fluid-5xl {
+    font-size: clamp(3rem, 7vw, 6rem);
   }
 
   .perspective-1000 {
     perspective: 1000px;
   }
 
-  .preserve-3d {
-    transform-style: preserve-3d;
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
   }
 
-  .backface-hidden {
-    backface-visibility: hidden;
+  ::-webkit-scrollbar-track {
+    background: #0a0a0a;
   }
 
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
+  ::-webkit-scrollbar-thumb {
+    background: #262626;
+    border-radius: 4px;
   }
 
-  .no-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-
-  /* GPU acceleration */
-  .gpu-accelerate {
-    transform: translateZ(0);
-    will-change: transform;
-  }
-
-  /* Smooth transitions */
-  .transition-smooth {
-    transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  }
-
-  /* Custom cursor classes */
-  .cursor-link,
-  .cursor-button,
-  .cursor-image,
-  .cursor-text {
-    cursor: none;
-  }
-
-  @media (pointer: coarse) {
-    .cursor-link,
-    .cursor-button,
-    .cursor-image,
-    .cursor-text {
-      cursor: pointer;
-    }
-  }
-
-  /* Magnetic effect hint */
-  .magnetic {
-    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  }
-
-  /* Touch device optimizations */
-  @media (hover: none) and (pointer: coarse) {
-    * {
-      -webkit-tap-highlight-color: rgba(255, 107, 107, 0.1);
-    }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #404040;
   }
 }
