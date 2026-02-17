@@ -1,74 +1,91 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { RevealOnScroll } from '@/components/animations/RevealOnScroll'
-import { AnimatedText } from '@/components/animations/AnimatedText'
 
 export function ContactSection() {
   return (
-    <section className="py-fluid-xl px-6 md:px-12 relative overflow-hidden">
-      {/* Animated background gradient */}
-      <motion.div
-        className="absolute inset-0 bg-gradient-to-br from-accent/10 via-transparent to-transparent"
-        animate={{
-          backgroundPosition: ['0% 0%', '100% 100%'],
-        }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          repeatType: 'reverse',
-          ease: 'linear',
-        }}
-        style={{ backgroundSize: '200% 200%' }}
-      />
-
-      <div className="max-w-4xl mx-auto text-center relative z-10">
-        <RevealOnScroll>
-          <AnimatedText
-            text="Let's Create Something Amazing"
-            as="h2"
-            className="text-fluid-3xl font-bold mb-8 tracking-tight"
-          />
-        </RevealOnScroll>
-
-        <RevealOnScroll delay={0.2}>
-          <p className="text-fluid-lg text-muted mb-12 leading-relaxed max-w-2xl mx-auto">
-            I'm always open to discussing new projects, creative ideas, or
-            opportunities to be part of your vision.
-          </p>
-        </RevealOnScroll>
-
-        <RevealOnScroll delay={0.3}>
-          <motion.a
-            href="mailto:hello@sebastianllovera.com"
-            whileHover={{ scale: 1.05, y: -5 }}
-            whileTap={{ scale: 0.95 }}
-            className="magnetic cursor-button inline-block px-12 py-5 bg-foreground text-background rounded-full font-medium text-fluid-base shadow-[0_10px_40px_rgba(250,250,250,0.1)] hover:shadow-[0_20px_60px_rgba(250,250,250,0.2)] transition-all duration-300"
+    <section 
+      className="py-[100px] px-[60px] max-[768px]:px-[30px] border-t"
+      style={{ borderColor: '#222222' }}
+    >
+      <div className="max-w-[1400px] mx-auto">
+        <div className="grid md:grid-cols-3 gap-[60px]">
+          {/* Column 1 - Contact */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
           >
-            Get In Touch
-          </motion.a>
-        </RevealOnScroll>
+            <h3 className="text-[11px] uppercase tracking-[2px] mb-[20px]" style={{ color: '#666666' }}>
+              Contact
+            </h3>
+            <a 
+              href="mailto:hello@sebastianllovera.com"
+              className="block text-[18px] mb-[12px] transition-colors duration-300"
+              style={{ color: '#00D9FF' }}
+              onMouseEnter={(e) => e.currentTarget.style.color = '#FFFFFF'}
+              onMouseLeave={(e) => e.currentTarget.style.color = '#00D9FF'}
+            >
+              hello@sebastianllovera.com
+            </a>
+          </motion.div>
 
-        <RevealOnScroll delay={0.4}>
-          <div className="mt-20 pt-12 border-t border-foreground/10">
-            <div className="flex justify-center gap-12 flex-wrap">
-              {['GitHub', 'LinkedIn', 'Twitter', 'Instagram'].map((social, i) => (
-                <motion.a
+          {/* Column 2 - Social */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1, duration: 0.8 }}
+          >
+            <h3 className="text-[11px] uppercase tracking-[2px] mb-[20px]" style={{ color: '#666666' }}>
+              Follow
+            </h3>
+            <div className="space-y-[12px]">
+              {['Instagram', 'LinkedIn', 'GitHub'].map(social => (
+                <a
                   key={social}
                   href="#"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.5 + i * 0.05 }}
-                  whileHover={{ y: -3, color: '#ff6b6b' }}
-                  className="magnetic cursor-link text-muted hover:text-foreground transition-colors duration-300 text-sm uppercase tracking-widest"
+                  className="block text-[16px] transition-colors duration-300"
+                  style={{ color: '#999999', lineHeight: '1.6' }}
+                  onMouseEnter={(e) => e.currentTarget.style.color = '#FFFFFF'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = '#999999'}
                 >
                   {social}
-                </motion.a>
+                </a>
               ))}
             </div>
-          </div>
-        </RevealOnScroll>
+          </motion.div>
+
+          {/* Column 3 - Info */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2, duration: 0.8 }}
+          >
+            <h3 className="text-[11px] uppercase tracking-[2px] mb-[20px]" style={{ color: '#666666' }}>
+              Location
+            </h3>
+            <p className="text-[16px]" style={{ color: '#999999', lineHeight: '1.6' }}>
+              Based between
+              <br />
+              Venezuela & United States
+            </p>
+          </motion.div>
+        </div>
+
+        {/* Copyright */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.4, duration: 0.8 }}
+          className="mt-[80px] text-center text-[13px]" 
+          style={{ color: '#666666' }}
+        >
+          © {new Date().getFullYear()} Sebastian Llovera. All rights reserved.
+        </motion.div>
       </div>
     </section>
   )

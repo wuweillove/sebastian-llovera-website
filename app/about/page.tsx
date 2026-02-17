@@ -1,50 +1,56 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Link from 'next/link'
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-[#0a0a0a] pt-32 pb-20 px-8 md:px-16">
+    <div className="min-h-screen bg-black text-white pt-[150px] pb-[100px] px-[60px] max-[768px]:px-[30px]">
       <div className="max-w-[1200px] mx-auto">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="mb-24"
+          className="mb-[80px]"
         >
-          <span className="text-xs uppercase tracking-[0.3em] text-neutral-600 mb-6 block font-light">
+          <div className="text-[11px] uppercase tracking-[3px] mb-[40px]" style={{ color: '#00D9FF' }}>
             About
-          </span>
-          <h1 className="text-[clamp(2.5rem,8vw,6rem)] font-light mb-12 tracking-tight leading-[1.1] text-neutral-100">
+          </div>
+          <h1 
+            className="text-[60px] max-[768px]:text-[40px] font-bold mb-[40px]"
+            style={{ letterSpacing: '-2px', lineHeight: '1.1' }}
+          >
             Visual Artist &
             <br />
-            Digital Practitioner
+            Creative Technologist
           </h1>
         </motion.div>
 
-        {/* Bio */}
-        <div className="grid md:grid-cols-12 gap-12 md:gap-16 mb-24">
+        {/* Bio Grid */}
+        <div className="grid md:grid-cols-3 gap-[60px] mb-[100px]">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.8 }}
-            className="md:col-span-8"
+            className="md:col-span-2"
           >
-            <div className="text-lg md:text-xl text-neutral-400 leading-relaxed space-y-6 font-light">
+            <div className="text-[18px] space-y-[24px]" style={{ color: '#bbbbbb', lineHeight: '1.8' }}>
               <p>
-                Sebastian Llovera is a Venezuelan visual artist working at the intersection
-                of traditional art practices and contemporary digital technologies. His work
-                explores themes of identity, memory, and technological mediation.
+                Sebastian Llovera is a Venezuelan visual artist whose practice exists at the
+                intersection of traditional artistic methodologies and contemporary digital
+                technologies. His work investigates themes of memory, identity, and the ways
+                technology mediates human experience.
               </p>
               <p>
                 With an MFA from the University of Michigan Stamps School of Art & Design,
-                Sebastian's practice encompasses installation, digital media, and hybrid
-                forms that challenge conventional boundaries between physical and virtual spaces.
+                Sebastian creates immersive installations, digital compositions, and
+                interactive experiences that challenge conventional boundaries between
+                physical and virtual spaces.
               </p>
               <p>
-                His work has been exhibited internationally and supported by residency programs
-                focused on emerging technologies and contemporary art practices.
+                His work has been exhibited internationally and supported through various
+                residency programs focused on emerging technologies and contemporary art practices.
               </p>
             </div>
           </motion.div>
@@ -53,52 +59,56 @@ export default function AboutPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.8 }}
-            className="md:col-span-4"
+            className="space-y-[50px]"
           >
-            <div className="space-y-12">
-              {/* Education */}
-              <div>
-                <h3 className="text-xs uppercase tracking-[0.3em] text-neutral-600 mb-4 font-light">Education</h3>
-                <ul className="space-y-3 text-neutral-300 font-light">
-                  <li className="flex items-start gap-3">
-                    <span className="text-neutral-600 mt-1">✦</span>
-                    <span>MFA, University of Michigan Stamps School of Art & Design</span>
-                  </li>
-                </ul>
+            {/* Education */}
+            <div>
+              <h3 className="text-[11px] uppercase tracking-[2px] mb-[20px]" style={{ color: '#666666' }}>
+                Education
+              </h3>
+              <div className="space-y-[12px] text-[16px]" style={{ color: '#999999', lineHeight: '1.6' }}>
+                <div className="flex items-start gap-[12px]">
+                  <span style={{ color: '#00D9FF' }}>✦</span>
+                  <span>MFA, University of Michigan Stamps School of Art & Design</span>
+                </div>
               </div>
+            </div>
 
-              {/* Selected Exhibitions */}
-              <div>
-                <h3 className="text-xs uppercase tracking-[0.3em] text-neutral-600 mb-4 font-light">Selected Exhibitions</h3>
-                <ul className="space-y-3 text-neutral-300 font-light text-sm">
-                  <li className="flex items-start gap-3">
-                    <span className="text-neutral-600 mt-1">✦</span>
-                    <span>Contemporary Art Fair, 2024</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-neutral-600 mt-1">✦</span>
-                    <span>Digital Futures Exhibition, 2023</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-neutral-600 mt-1">✦</span>
-                    <span>MFA Thesis Exhibition, 2023</span>
-                  </li>
-                </ul>
+            {/* Selected Exhibitions */}
+            <div>
+              <h3 className="text-[11px] uppercase tracking-[2px] mb-[20px]" style={{ color: '#666666' }}>
+                Selected Exhibitions
+              </h3>
+              <div className="space-y-[12px] text-[16px]" style={{ color: '#999999', lineHeight: '1.6' }}>
+                <div className="flex items-start gap-[12px]">
+                  <span style={{ color: '#00D9FF' }}>✦</span>
+                  <span>Contemporary Art Fair, 2024</span>
+                </div>
+                <div className="flex items-start gap-[12px]">
+                  <span style={{ color: '#00D9FF' }}>✦</span>
+                  <span>Digital Futures Exhibition, 2023</span>
+                </div>
+                <div className="flex items-start gap-[12px]">
+                  <span style={{ color: '#00D9FF' }}>✦</span>
+                  <span>MFA Thesis Exhibition, 2023</span>
+                </div>
               </div>
+            </div>
 
-              {/* Recognition */}
-              <div>
-                <h3 className="text-xs uppercase tracking-[0.3em] text-neutral-600 mb-4 font-light">Recognition</h3>
-                <ul className="space-y-3 text-neutral-300 font-light text-sm">
-                  <li className="flex items-start gap-3">
-                    <span className="text-neutral-600 mt-1">✦</span>
-                    <span>Artist Residency Program, 2024</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-neutral-600 mt-1">✦</span>
-                    <span>Emerging Artist Grant, 2023</span>
-                  </li>
-                </ul>
+            {/* Recognition */}
+            <div>
+              <h3 className="text-[11px] uppercase tracking-[2px] mb-[20px]" style={{ color: '#666666' }}>
+                Recognition
+              </h3>
+              <div className="space-y-[12px] text-[16px]" style={{ color: '#999999', lineHeight: '1.6' }}>
+                <div className="flex items-start gap-[12px]">
+                  <span style={{ color: '#00D9FF' }}>✦</span>
+                  <span>Artist Residency Program, 2024</span>
+                </div>
+                <div className="flex items-start gap-[12px]">
+                  <span style={{ color: '#00D9FF' }}>✦</span>
+                  <span>Emerging Artist Grant, 2023</span>
+                </div>
               </div>
             </div>
           </motion.div>
@@ -109,19 +119,35 @@ export default function AboutPage() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.8 }}
-          className="border-t border-neutral-800 pt-12"
+          className="border-t pt-[60px]"
+          style={{ borderColor: '#222222' }}
         >
-          <h3 className="text-xs uppercase tracking-[0.3em] text-neutral-600 mb-8 font-light">Contact</h3>
-          <div className="text-neutral-300 font-light space-y-4">
-            <p>
-              <a href="mailto:hello@sebastianllovera.com" className="hover:text-neutral-100 transition-colors">
-                hello@sebastianllovera.com
-              </a>
-            </p>
-            <div className="flex gap-6 text-sm">
-              <a href="#" className="hover:text-neutral-100 transition-colors">Instagram</a>
-              <a href="#" className="hover:text-neutral-100 transition-colors">LinkedIn</a>
-              <a href="#" className="hover:text-neutral-100 transition-colors">GitHub</a>
+          <h3 className="text-[11px] uppercase tracking-[2px] mb-[30px]" style={{ color: '#666666' }}>
+            Contact
+          </h3>
+          <div className="space-y-[20px]">
+            <a 
+              href="mailto:hello@sebastianllovera.com"
+              className="block text-[18px] transition-colors duration-300"
+              style={{ color: '#00D9FF' }}
+              onMouseEnter={(e) => e.currentTarget.style.color = '#FFFFFF'}
+              onMouseLeave={(e) => e.currentTarget.style.color = '#00D9FF'}
+            >
+              hello@sebastianllovera.com
+            </a>
+            <div className="flex gap-[30px] text-[16px]">
+              {['Instagram', 'LinkedIn', 'GitHub'].map(social => (
+                <a
+                  key={social}
+                  href="#"
+                  className="transition-colors duration-300"
+                  style={{ color: '#00D9FF' }}
+                  onMouseEnter={(e) => e.currentTarget.style.color = '#FFFFFF'}
+                  onMouseLeave={(e) => e.currentTarget.style.color = '#00D9FF'}
+                >
+                  {social}
+                </a>
+              ))}
             </div>
           </div>
         </motion.div>

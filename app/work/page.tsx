@@ -1,8 +1,8 @@
 'use client'
 
-import { ImmersiveProjectViewer } from '@/components/projects/ImmersiveProjectViewer'
+import { ProjectViewer } from '@/components/projects/ProjectViewer'
 import { projects } from '@/lib/projects'
 
 export default function WorkPage() {
-  return <ImmersiveProjectViewer projects={projects} />
+  return <ProjectViewer projects={projects} />
 }

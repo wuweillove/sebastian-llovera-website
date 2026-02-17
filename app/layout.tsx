@@ -1,21 +1,10 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import './globals.css'
-import { MinimalNavigation } from '@/components/navigation/MinimalNavigation'
-
-const inter = Inter({ 
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '700'],
-  variable: '--font-inter',
-  display: 'swap',
-})
+import { Header } from '@/components/layout/Header'
 
 export const metadata: Metadata = {
   title: 'Sebastian Llovera | Visual Artist',
-  description: 'Portfolio of Sebastian Llovera - Venezuelan visual artist working at the intersection of traditional art and digital technologies.',
-  keywords: ['visual art', 'contemporary art', 'digital art', 'installation', 'MFA', 'artist'],
-  authors: [{ name: 'Sebastian Llovera' }],
-  creator: 'Sebastian Llovera',
+  description: 'Visual artist working at the intersection of art and technology',
 }
 
 export default function RootLayout({
@@ -24,9 +13,14 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={inter.variable}>
-      <body className="bg-[#0a0a0a] text-neutral-100 antialiased">
-        <MinimalNavigation />
+    <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </head>
+      <body className="bg-black text-white" style={{ fontFamily: "'Helvetica Neue', Arial, sans-serif" }}>
+        <Header />
         {children}
       </body>
     </html>
