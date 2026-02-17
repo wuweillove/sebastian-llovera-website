@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { PremiumCursor } from '@/components/cursor/PremiumCursor'
 import { TouchRipple } from '@/components/cursor/TouchRipple'
-import { NavigationMicro } from '@/components/navigation/NavigationMicro'
+import { Navigation } from '@/components/navigation/Navigation'
 import { PremiumPageTransition } from '@/components/animations/PremiumPageTransition'
 import { SmoothScroll } from '@/components/animations/SmoothScroll'
 
@@ -54,7 +54,7 @@ export default function RootLayout({
         <SmoothScroll>
           <PremiumCursor />
           <TouchRipple />
-          <NavigationMicro />
+          <Navigation />
           <PremiumPageTransition>
             <main role="main" id="main-content">
               {children}

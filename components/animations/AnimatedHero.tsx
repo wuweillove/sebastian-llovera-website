@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
 import { useRef } from 'react'
 import { TextReveal } from './TextReveal'
 import { WordByWordReveal } from './WordByWordReveal'
+import { MagneticButton } from '@/components/ui/MagneticButton'
 
 export function AnimatedHero() {
   const ref = useRef(null)
@@ -90,24 +91,18 @@ export function AnimatedHero() {
           transition={{ delay: 1.2, duration: 0.8 }}
           className="flex gap-6 justify-center flex-wrap"
         >
-          <motion.a
-            href="/projects"
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.98 }}
-            data-cursor="button"
-            className="px-10 py-4 bg-foreground text-background rounded-full font-medium transition-all duration-300 hover:shadow-[0_10px_40px_rgba(250,250,250,0.2)]"
+          <MagneticButton
+            href="/work"
+            className="bg-foreground text-background border-2 border-foreground"
           >
             Explore Work
-          </motion.a>
-          <motion.a
+          </MagneticButton>
+          <MagneticButton
             href="/about"
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.98 }}
-            data-cursor="button"
-            className="px-10 py-4 border-2 border-foreground/20 rounded-full font-medium transition-all duration-300 hover:border-foreground/40 hover:bg-foreground/5"
+            className="border-2 border-foreground/20 hover:border-foreground/40"
           >
             About Me
-          </motion.a>
+          </MagneticButton>
         </motion.div>
       </motion.div>
 
