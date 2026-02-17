@@ -28,24 +28,32 @@ export function Header() {
       }}
     >
       <nav className="px-[60px] py-[40px] md:px-[60px] md:py-[40px] max-[768px]:px-[30px] max-[768px]:py-[30px] flex items-center justify-between">
-        {/* Logo */}
+        {/* Logo - Fixed to show full name */}
         <Link href="/">
           <motion.div
             whileHover={{ opacity: 0.7 }}
-            className="uppercase text-[14px] font-semibold tracking-[1px] text-white"
+            className="uppercase text-[14px] font-semibold tracking-[1px] text-white whitespace-nowrap"
+            style={{ 
+              minWidth: 'fit-content',
+              overflow: 'visible',
+            }}
           >
-            Sebastian Llovera
+            Sebastián Llovera
           </motion.div>
         </Link>
 
-        {/* Navigation Links */}
-        <div className="flex items-center gap-[40px]">
-          {[{ name: 'ARCHIVE', href: '/work' }, { name: 'ABOUT', href: '/about' }].map(item => (
+        {/* Navigation Links - Removed "logbook" label, adjusted spacing */}
+        <div className="flex items-center gap-[50px] max-[768px]:gap-[30px]">
+          {[{ name: 'WORK', href: '/work' }, { name: 'ABOUT', href: '/about' }].map(item => (
             <Link key={item.name} href={item.href}>
               <motion.div
                 className="relative text-[13px] font-medium uppercase tracking-[1px] transition-colors duration-300"
                 style={{ color: pathname === item.href ? '#00D9FF' : '#FFFFFF' }}
-                whileHover={{ color: '#00D9FF' }}
+                whileHover={{ 
+                  color: '#00D9FF',
+                  y: -2 
+                }}
+                transition={{ duration: 0.2 }}
               >
                 {item.name}
                 {pathname === item.href && (
