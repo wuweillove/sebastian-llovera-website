@@ -30,36 +30,37 @@ export function ProjectViewer({ projects, initialIndex = 0 }: ProjectViewerProps
     }
   }
 
-  // Keyboard navigation
+  // Keyboard navigation - Arrow keys for horizontal navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowRight') goNext()
-      else if (e.key === 'ArrowLeft') goPrev()
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goNext()
+      else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') goPrev()
       else if (e.key === 'Escape') router.push('/')
     }
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [currentIndex])
 
-  // Mouse wheel navigation
+  // Mouse wheel navigation - horizontal scrolling
   useEffect(() => {
     let timeout: NodeJS.Timeout
     let isScrolling = false
 
     const handleWheel = (e: WheelEvent) => {
-      e.preventDefault()
       if (isScrolling) return
       
       isScrolling = true
-      if (e.deltaY > 0) goNext()
-      else if (e.deltaY < 0) goPrev()
+      // Support both vertical scroll wheel and horizontal trackpad gestures
+      const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY
+      if (delta > 0) goNext()
+      else if (delta < 0) goPrev()
 
       timeout = setTimeout(() => {
         isScrolling = false
-      }, 800)
+      }, 600)
     }
 
-    window.addEventListener('wheel', handleWheel, { passive: false })
+    window.addEventListener('wheel', handleWheel, { passive: true })
     return () => {
       window.removeEventListener('wheel', handleWheel)
       if (timeout) clearTimeout(timeout)
@@ -67,12 +68,12 @@ export function ProjectViewer({ projects, initialIndex = 0 }: ProjectViewerProps
   }, [currentIndex])
 
   return (
-    <div className="fixed inset-0 bg-black overflow-y-auto">
-      {/* Navigation Arrows - Fixed on Sides */}
+    <div className="fixed inset-0 bg-black flex flex-col">
+      {/* Navigation Arrows - Fixed on Sides for horizontal navigation */}
       {hasPrev && (
         <motion.button
           onClick={goPrev}
-          whileHover={{ backgroundColor: '#00D9FF', color: '#000000' }}
+          whileHover={{ backgroundColor: '#00D9FF', color: '#000000', scale: 1.1 }}
           className="fixed left-[40px] top-1/2 -translate-y-1/2 z-[100] w-[50px] h-[50px] flex items-center justify-center text-[24px] rounded-full border transition-all duration-300 max-[768px]:left-[20px]"
           style={{
             backgroundColor: 'rgba(0, 0, 0, 0.8)',
@@ -89,7 +90,7 @@ export function ProjectViewer({ projects, initialIndex = 0 }: ProjectViewerProps
       {hasNext && (
         <motion.button
           onClick={goNext}
-          whileHover={{ backgroundColor: '#00D9FF', color: '#000000' }}
+          whileHover={{ backgroundColor: '#00D9FF', color: '#000000', scale: 1.1 }}
           className="fixed right-[40px] top-1/2 -translate-y-1/2 z-[100] w-[50px] h-[50px] flex items-center justify-center text-[24px] rounded-full border transition-all duration-300 max-[768px]:right-[20px]"
           style={{
             backgroundColor: 'rgba(0, 0, 0, 0.8)',
@@ -123,127 +124,120 @@ export function ProjectViewer({ projects, initialIndex = 0 }: ProjectViewerProps
         ✕
       </motion.button>
 
-      {/* Project Content */}
-      <div className="pt-[150px] pb-[100px] px-[60px] max-[768px]:pt-[120px] max-[768px]:px-[30px]">
+      {/* Project Progress Indicator */}
+      <div className="fixed top-[40px] left-1/2 -translate-x-1/2 z-[100] flex items-center gap-[8px] max-[768px]:top-[30px]">
+        {projects.map((_, index) => (
+          <motion.div
+            key={index}
+            className="h-[2px] cursor-pointer"
+            style={{
+              width: index === currentIndex ? '40px' : '20px',
+              backgroundColor: index === currentIndex ? '#00D9FF' : 'rgba(255, 255, 255, 0.3)',
+            }}
+            onClick={() => setCurrentIndex(index)}
+            whileHover={{ backgroundColor: '#00D9FF' }}
+            transition={{ duration: 0.3 }}
+          />
+        ))}
+      </div>
+
+      {/* Horizontal Scrollable Content */}
+      <div className="flex-1 overflow-x-auto overflow-y-hidden pt-[100px] pb-[60px] max-[768px]:pt-[80px]">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentProject.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-            className="max-w-[900px] mx-auto"
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -100 }}
+            transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+            className="h-full flex items-center px-[60px] max-[768px]:px-[30px]"
           >
-            {/* Year */}
-            <div 
-              className="text-[14px] uppercase tracking-[2px] mb-[30px]"
-              style={{ color: '#00D9FF' }}
-            >
-              {currentProject.year}
-            </div>
-
-            {/* Title */}
-            <h1 
-              className="text-[48px] max-[768px]:text-[32px] font-bold mb-[15px] text-white"
-              style={{ letterSpacing: '-2px' }}
-            >
-              {currentProject.title}
-            </h1>
-
-            {/* Main Image */}
-            <div className="my-[40px]">
-              <img
-                src={currentProject.image || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1600'}
-                alt={currentProject.title}
-                className="w-full block"
-                style={{
-                  maxHeight: '70vh',
-                  objectFit: 'contain',
-                }}
-              />
-            </div>
-
-            {/* Description */}
-            <p 
-              className="text-[18px] mb-[60px]"
-              style={{
-                color: '#bbbbbb',
-                lineHeight: '1.8',
-              }}
-            >
-              {currentProject.longDescription || currentProject.description}
-            </p>
-
-            {/* Overview Section */}
-            <div className="mb-[60px]">
-              <h2 
-                className="text-[11px] uppercase tracking-[3px] mb-[30px]"
-                style={{ color: '#666666' }}
+            <div className="flex items-center gap-[60px] max-w-none max-[768px]:flex-col max-[768px]:items-start">
+              {/* Main Image - Large and centered */}
+              <motion.div 
+                className="flex-shrink-0"
+                initial={{ scale: 0.95, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
               >
-                Overview
-              </h2>
-              <p 
-                className="text-[16px]"
-                style={{
-                  color: '#999999',
-                  lineHeight: '1.6',
-                }}
-              >
-                {currentProject.longDescription || currentProject.description}
-              </p>
-            </div>
+                <img
+                  src={currentProject.image || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1600'}
+                  alt={currentProject.title}
+                  className="block max-[768px]:w-full"
+                  style={{
+                    width: 'auto',
+                    maxWidth: '55vw',
+                    maxHeight: '70vh',
+                    objectFit: 'contain',
+                  }}
+                />
+              </motion.div>
 
-            {/* Credits Section */}
-            <div className="mb-[60px]">
-              <h2 
-                className="text-[11px] uppercase tracking-[3px] mb-[30px]"
-                style={{ color: '#666666' }}
+              {/* Project Info - Side by side with image */}
+              <motion.div
+                className="flex-shrink-0 max-w-[400px] max-[768px]:max-w-full"
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
               >
-                Credits
-              </h2>
-              <div className="space-y-[10px]">
-                <div className="flex items-center gap-[12px] text-[16px]" style={{ color: '#999999' }}>
-                  <span style={{ color: '#00D9FF' }}>✦</span>
-                  Sebastian Llovera — Artist
-                </div>
-              </div>
-            </div>
-
-            {/* Medium & Technologies */}
-            <div className="mb-[60px]">
-              <h2 
-                className="text-[11px] uppercase tracking-[3px] mb-[30px]"
-                style={{ color: '#666666' }}
-              >
-                Medium & Technologies
-              </h2>
-              <div className="space-y-[10px]">
-                {currentProject.tags.map(tag => (
-                  <div key={tag} className="flex items-center gap-[12px] text-[16px]" style={{ color: '#999999' }}>
-                    <span style={{ color: '#00D9FF' }}>✦</span>
-                    {tag}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Additional Images */}
-            <div className="space-y-[40px]">
-              {[1, 2].map(i => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8 }}
+                {/* Year */}
+                <div 
+                  className="text-[14px] uppercase tracking-[2px] mb-[20px]"
+                  style={{ color: '#00D9FF' }}
                 >
-                  <img
-                    src={`https://images.unsplash.com/photo-${1618005182384 + i * 50000}-a83a8bd57fbe?w=1600`}
-                    alt={`${currentProject.title} detail ${i}`}
-                    className="w-full block"
-                  />
-                </motion.div>
-              ))}
+                  {currentProject.year}
+                </div>
+
+                {/* Title */}
+                <h1 
+                  className="text-[42px] max-[768px]:text-[32px] font-bold mb-[20px] text-white"
+                  style={{ letterSpacing: '-2px' }}
+                >
+                  {currentProject.title}
+                </h1>
+
+                {/* Description */}
+                <p 
+                  className="text-[16px] mb-[40px]"
+                  style={{
+                    color: '#bbbbbb',
+                    lineHeight: '1.7',
+                  }}
+                >
+                  {currentProject.longDescription || currentProject.description}
+                </p>
+
+                {/* Tags */}
+                <div className="flex flex-wrap gap-[8px] mb-[40px]">
+                  {currentProject.tags.map(tag => (
+                    <span
+                      key={tag}
+                      className="px-[12px] py-[6px] text-[11px] uppercase tracking-[1px] rounded-full"
+                      style={{
+                        backgroundColor: 'rgba(0, 217, 255, 0.1)',
+                        color: '#00D9FF',
+                        border: '1px solid rgba(0, 217, 255, 0.3)',
+                      }}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                {/* View Details Button */}
+                <motion.button
+                  onClick={() => router.push(`/projects/${currentProject.slug}`)}
+                  whileHover={{ backgroundColor: '#00D9FF', color: '#000000' }}
+                  className="px-[24px] py-[12px] text-[13px] uppercase tracking-[1px] rounded-full border transition-all duration-300"
+                  style={{
+                    backgroundColor: 'transparent',
+                    borderColor: '#00D9FF',
+                    color: '#00D9FF',
+                  }}
+                >
+                  View Details
+                </motion.button>
+              </motion.div>
             </div>
           </motion.div>
         </AnimatePresence>
