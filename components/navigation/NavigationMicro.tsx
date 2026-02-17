@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 
 interface NavOverlayProps {
@@ -13,7 +13,7 @@ interface NavOverlayProps {
 function NavOverlay({ isOpen, onClose }: NavOverlayProps) {
   const menuItems = [
     { title: 'Home', href: '/', number: '01' },
-    { title: 'Work', href: '/projects', number: '02' },
+    { title: 'Work', href: '/work', number: '02' },
     { title: 'About', href: '/about', number: '03' },
   ]
 
@@ -28,80 +28,82 @@ function NavOverlay({ isOpen, onClose }: NavOverlayProps) {
     }
   }, [isOpen])
 
-  if (!isOpen) return null
-
   return (
-    <motion.div
-      initial={{ clipPath: 'circle(0% at 100% 0%)' }}
-      animate={{ clipPath: 'circle(150% at 100% 0%)' }}
-      exit={{ clipPath: 'circle(0% at 100% 0%)' }}
-      transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-      className="fixed inset-0 z-[90] bg-gradient-to-br from-accent via-accent/95 to-background"
-      onClick={onClose}
-    >
-      <div className="h-full flex flex-col items-center justify-center px-6">
-        <nav className="mb-16">
-          <ul className="space-y-8">
-            {menuItems.map((item, index) => (
-              <motion.li
-                key={item.href}
-                initial={{ opacity: 0, x: -50, filter: 'blur(10px)' }}
-                animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
-                exit={{ opacity: 0, x: -50, filter: 'blur(10px)' }}
-                transition={{ 
-                  delay: 0.3 + index * 0.1, 
-                  duration: 0.6,
-                  ease: [0.33, 1, 0.68, 1]
-                }}
-              >
-                <Link
-                  href={item.href}
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    onClose()
-                  }}
-                  data-cursor="hover"
-                  className="group flex items-center gap-8"
-                >
-                  <motion.span
-                    className="text-background/50 text-3xl font-light"
-                    whileHover={{ x: 10, color: 'rgba(10, 10, 10, 1)' }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    {item.number}
-                  </motion.span>
-                  <div className="relative">
-                    <motion.span
-                      whileHover={{ x: 20 }}
-                      transition={{ duration: 0.3 }}
-                      className="text-fluid-3xl md:text-[clamp(3rem,6vw,6rem)] font-bold text-background block"
-                    >
-                      {item.title}
-                    </motion.span>
-                    <motion.span
-                      className="absolute bottom-0 left-0 h-1 bg-background"
-                      initial={{ width: 0 }}
-                      whileHover={{ width: '100%' }}
-                      transition={{ duration: 0.4, ease: 'easeOut' }}
-                    />
-                  </div>
-                </Link>
-              </motion.li>
-            ))}
-          </ul>
-        </nav>
-
+    <AnimatePresence>
+      {isOpen && (
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 }}
-          transition={{ delay: 0.6, duration: 0.4 }}
-          className="text-background/70 text-sm uppercase tracking-[0.2em]"
+          initial={{ clipPath: 'circle(0% at 100% 0%)' }}
+          animate={{ clipPath: 'circle(150% at 100% 0%)' }}
+          exit={{ clipPath: 'circle(0% at 100% 0%)' }}
+          transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+          className="fixed inset-0 z-[90] bg-gradient-to-br from-accent via-accent/95 to-background"
+          onClick={onClose}
         >
-          hello@sebastianllovera.com
+          <div className="h-full flex flex-col items-center justify-center px-6">
+            <nav className="mb-16">
+              <ul className="space-y-8">
+                {menuItems.map((item, index) => (
+                  <motion.li
+                    key={item.href}
+                    initial={{ opacity: 0, x: -50, filter: 'blur(10px)' }}
+                    animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+                    exit={{ opacity: 0, x: -50, filter: 'blur(10px)' }}
+                    transition={{ 
+                      delay: 0.3 + index * 0.1, 
+                      duration: 0.6,
+                      ease: [0.33, 1, 0.68, 1]
+                    }}
+                  >
+                    <Link
+                      href={item.href}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        onClose()
+                      }}
+                      data-cursor="hover"
+                      className="group flex items-center gap-8"
+                    >
+                      <motion.span
+                        className="text-background/50 text-3xl font-light"
+                        whileHover={{ x: 10, color: 'rgba(10, 10, 10, 1)' }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        {item.number}
+                      </motion.span>
+                      <div className="relative">
+                        <motion.span
+                          whileHover={{ x: 20 }}
+                          transition={{ duration: 0.3 }}
+                          className="text-fluid-3xl md:text-[clamp(3rem,6vw,6rem)] font-bold text-background block"
+                        >
+                          {item.title}
+                        </motion.span>
+                        <motion.span
+                          className="absolute bottom-0 left-0 h-1 bg-background"
+                          initial={{ width: 0 }}
+                          whileHover={{ width: '100%' }}
+                          transition={{ duration: 0.4, ease: 'easeOut' }}
+                        />
+                      </div>
+                    </Link>
+                  </motion.li>
+                ))}
+              </ul>
+            </nav>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ delay: 0.6, duration: 0.4 }}
+              className="text-background/70 text-sm uppercase tracking-[0.2em]"
+            >
+              hello@sebastianllovera.com
+            </motion.div>
+          </div>
         </motion.div>
-      </div>
-    </motion.div>
+      )}
+    </AnimatePresence>
   )
 }
 
@@ -150,7 +152,7 @@ export function NavigationMicro() {
         }`}
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          {/* Logo with microinteraction */}
+          {/* Logo */}
           <Link href="/" data-cursor="hover">
             <motion.div
               whileHover={{ scale: 1.05, rotate: [0, -5, 5, 0] }}
@@ -168,17 +170,17 @@ export function NavigationMicro() {
             </motion.div>
           </Link>
 
-          {/* Desktop Navigation with underline animation */}
+          {/* Desktop Navigation */}
           <motion.div 
             className="hidden md:flex items-center gap-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4, duration: 0.5 }}
           >
-            {['Work', 'About'].map((item, i) => (
+            {[{ name: 'Work', href: '/work' }, { name: 'About', href: '/about' }].map((item) => (
               <Link
-                key={item}
-                href={`/${item.toLowerCase()}`}
+                key={item.name}
+                href={item.href}
                 data-cursor="hover"
                 className="relative group"
               >
@@ -186,7 +188,7 @@ export function NavigationMicro() {
                   whileHover={{ y: -2 }}
                   className="text-sm uppercase tracking-[0.15em] text-muted group-hover:text-foreground transition-colors duration-300"
                 >
-                  {item}
+                  {item.name}
                 </motion.span>
                 <motion.span
                   className="absolute -bottom-1 left-0 h-[2px] bg-accent"
@@ -198,7 +200,7 @@ export function NavigationMicro() {
             ))}
           </motion.div>
 
-          {/* Hamburger menu with microinteraction */}
+          {/* Hamburger menu */}
           <motion.button
             onClick={() => setIsOpen(!isOpen)}
             whileHover={{ scale: 1.05 }}
