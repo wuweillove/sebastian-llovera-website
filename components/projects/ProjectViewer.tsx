@@ -2,18 +2,17 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { Project } from '@/types'
 
 interface ProjectViewerProps {
   projects: Project[]
+  initialIndex?: number
 }
 
-export function ProjectViewer({ projects }: ProjectViewerProps) {
+export function ProjectViewer({ projects, initialIndex = 0 }: ProjectViewerProps) {
   const router = useRouter()
-  const searchParams = useSearchParams()
-  const projectIndex = parseInt(searchParams.get('project') || '0')
-  const [currentIndex, setCurrentIndex] = useState(projectIndex)
+  const [currentIndex, setCurrentIndex] = useState(initialIndex)
 
   const currentProject = projects[currentIndex]
   const hasPrev = currentIndex > 0
@@ -40,6 +39,31 @@ export function ProjectViewer({ projects }: ProjectViewerProps) {
     }
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [currentIndex])
+
+  // Mouse wheel navigation
+  useEffect(() => {
+    let timeout: NodeJS.Timeout
+    let isScrolling = false
+
+    const handleWheel = (e: WheelEvent) => {
+      e.preventDefault()
+      if (isScrolling) return
+      
+      isScrolling = true
+      if (e.deltaY > 0) goNext()
+      else if (e.deltaY < 0) goPrev()
+
+      timeout = setTimeout(() => {
+        isScrolling = false
+      }, 800)
+    }
+
+    window.addEventListener('wheel', handleWheel, { passive: false })
+    return () => {
+      window.removeEventListener('wheel', handleWheel)
+      if (timeout) clearTimeout(timeout)
+    }
   }, [currentIndex])
 
   return (
@@ -185,7 +209,7 @@ export function ProjectViewer({ projects }: ProjectViewerProps) {
               </div>
             </div>
 
-            {/* Medium/Technologies */}
+            {/* Medium & Technologies */}
             <div className="mb-[60px]">
               <h2 
                 className="text-[11px] uppercase tracking-[3px] mb-[30px]"
