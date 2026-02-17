@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google'
 import './globals.css'
 import { PremiumCursor } from '@/components/cursor/PremiumCursor'
 import { TouchRipple } from '@/components/cursor/TouchRipple'
-import { Navigation } from '@/components/navigation/Navigation'
+import { RetinaaNavigation } from '@/components/navigation/RetinaaNavigation'
 import { PremiumPageTransition } from '@/components/animations/PremiumPageTransition'
 import { SmoothScroll } from '@/components/animations/SmoothScroll'
 
@@ -48,13 +48,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover" />
       </head>
       <body className="bg-background text-foreground antialiased overflow-x-hidden">
         <SmoothScroll>
           <PremiumCursor />
           <TouchRipple />
-          <Navigation />
+          <RetinaaNavigation />
           <PremiumPageTransition>
             <main role="main" id="main-content">
               {children}
@@ -62,10 +62,10 @@ export default function RootLayout({
           </PremiumPageTransition>
         </SmoothScroll>
         
-        {/* Accessibility: Skip to main content */}
+        {/* Accessibility */}
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[200] focus:px-4 focus:py-2 focus:bg-foreground focus:text-background focus:rounded-lg"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[300] focus:px-4 focus:py-2 focus:bg-foreground focus:text-background focus:rounded-lg"
         >
           Skip to main content
         </a>
