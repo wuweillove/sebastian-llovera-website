@@ -1,71 +1,70 @@
 'use client'
 
-import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ProjectCard } from '@/components/projects/ProjectCard'
-import { AnimatedText } from '@/components/animations/AnimatedText'
-import { RevealOnScroll } from '@/components/animations/RevealOnScroll'
+import Link from 'next/link'
 import { projects } from '@/lib/projects'
 
 export function ProjectsSection() {
-  const featuredProjects = projects.slice(0, 2)
-
   return (
-    <section className="py-fluid-xl px-6 md:px-12 relative">
-      {/* Background decoration */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/5 rounded-full blur-3xl" />
-      </div>
+    <section className="py-[100px] px-[60px] max-[768px]:py-[80px] max-[768px]:px-[30px]">
+      {/* Section Label */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="text-[11px] uppercase tracking-[3px] mb-[60px]"
+        style={{ color: '#00D9FF' }}
+      >
+        Selected Works
+      </motion.div>
 
-      <div className="max-w-7xl mx-auto relative z-10">
-        <div className="mb-fluid-md">
-          <RevealOnScroll>
-            <AnimatedText
-              text="Featured Projects"
-              as="h2"
-              className="text-fluid-3xl font-bold mb-6 tracking-tight"
-            />
-          </RevealOnScroll>
-          
-          <RevealOnScroll delay={0.2}>
-            <motion.p
-              className="text-fluid-lg text-muted max-w-2xl leading-relaxed"
+      {/* Projects - Vertically Stacked */}
+      <div className="space-y-[60px]">
+        {projects.map((project, index) => (
+          <Link key={project.id} href={`/work?project=${index}`}>
+            <motion.article
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-100px' }}
+              transition={{ duration: 0.8, delay: index * 0.1 }}
+              className="cursor-pointer overflow-hidden group"
             >
-              Selected works showcasing contemporary design, sophisticated
-              animations, and cutting-edge technologies
-            </motion.p>
-          </RevealOnScroll>
-        </div>
+              {/* Project Image */}
+              <div className="overflow-hidden mb-[30px]">
+                <motion.img
+                  src={project.image || 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1600'}
+                  alt={project.title}
+                  className="w-full block"
+                  style={{
+                    filter: 'brightness(0.85)',
+                    transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), filter 0.6s ease',
+                  }}
+                  whileHover={{
+                    scale: 1.03,
+                    filter: 'brightness(1)',
+                  }}
+                />
+              </div>
 
-        <div className="grid md:grid-cols-2 gap-8 mb-16">
-          {featuredProjects.map((project, index) => (
-            <ProjectCard key={project.slug} project={project} index={index} />
-          ))}
-        </div>
-
-        <RevealOnScroll delay={0.4}>
-          <div className="text-center">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-block"
-            >
-              <Link
-                href="/projects"
-                className="magnetic cursor-button group inline-flex items-center gap-3 px-8 py-4 border-2 border-foreground/20 rounded-full font-medium transition-all duration-300 hover:border-foreground/40 hover:bg-foreground/5"
-              >
-                <span>View All Projects</span>
-                <motion.span
-                  className="inline-block"
-                  animate={{ x: [0, 5, 0] }}
-                  transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
+              {/* Project Info */}
+              <div className="py-[30px]">
+                <h3 
+                  className="text-[28px] md:text-[48px] font-semibold mb-[8px] text-white group-hover:text-[#00D9FF] transition-colors duration-300"
+                  style={{ letterSpacing: '-0.5px' }}
                 >
-                  →
-                </motion.span>
-              </Link>
-            </motion.div>
-          </div>
-        </RevealOnScroll>
+                  {project.title}
+                </h3>
+                <div 
+                  className="text-[13px] uppercase tracking-[1px]"
+                  style={{ color: '#00D9FF' }}
+                >
+                  {project.year}
+                </div>
+              </div>
+            </motion.article>
+          </Link>
+        ))}
       </div>
     </section>
   )
